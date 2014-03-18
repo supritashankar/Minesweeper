@@ -4,3 +4,8 @@ from django.shortcuts import render_to_response
 
 def newgame(request):
   return render_to_response('frontend/newgame.html')
+
+def display_mine(request, level):
+  values = [1,2,3]
+  level = 'Beginner'
+  return render_to_response('frontend/beg-game.html', locals())
