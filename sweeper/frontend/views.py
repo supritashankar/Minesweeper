@@ -39,6 +39,34 @@ def display_mine(request, level):
   c.update(csrf(request)) 
   return render_to_response('frontend/beg-game1.html', c)
 
+""""
+def game_recursion(request):
+  values = request.session['values']
+  count = 0
+  # make the grid_value - which will have the values the counts
+  # make the grid_state - which will decide whether it has to be open/closed
+  # make the grid - which has the position of the mines
+  #grid_state = [[-1,1,1],[1,1,-1],[1,1,-1]]
+  #grid_value = [[4,0,1][1,1,2],[2,1,3]]
+  #grid = [[1,0,1],[1,1,1],[1,1,0]]
+  #state_stack = [] holds the ordering.
+  grid_state, grid_value = get_neighbours(row, col, grid_state, grid_value, grid)
+  return render_to_response('frontend/game.html', locals())
+
+def get_neighbours(row, col, grid_state, grid_value, grid):
+  for i in range(row-1, row+1):
+    for j in range(col-1, col+1):
+      if grid[i][j] == 1 and not marked:	#if not a mine
+         """ Also mark grid[i][j] as marked """
+         state_stack.append([row,col])
+         grid_state[row][col] = -1
+         get_neighbours(i, j, grid_state, grid_value, grid)
+      else:
+        grid_value[row][col] = grid_value[row][col] + 1
+  #pop the row and column from the state_stack and use the previous one to navigate
+  return get_neighbours(row, col, grid_state, grid_value, grid)
+"""
+
 def game(request):
   """ Once the user opens a square """
 
@@ -53,6 +81,10 @@ def game(request):
 
       
       count = get_neighbour_count(index, values)
+      if count == 0:
+        values[key] = -1
+        index = index + 1
+        game(request, index)
       values[key] = 8 - count #As we want the number of mines around
       break
   return render_to_response('frontend/game.html', locals())
@@ -97,4 +129,6 @@ def getRows(i, grid):
   rowe = []
   for j in range(0,3):
     rowe.append(grid[i][j])
-  return rowe
+    if grid[i][j] == 1:
+      grid[i][j] = -1
+  return rowe, grid
