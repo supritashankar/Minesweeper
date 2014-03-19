@@ -9,7 +9,7 @@ def newgame(request):
 def display_mine(request, level):
   c = {}
   if level == 'B':
-    values = {0:1,1:1,2:0,3:0, 4:0, 5:1, 6:1, 7:1, 8:1}
+    values = {0:1,1:1,2:1,3:0, 4:1, 5:1, 6:1, 7:1, 8:1}
     response = requests.get('http://127.0.0.1:8000/mines/randomize/3/')
     print response.content
     request.session['values'] = values
@@ -51,6 +51,8 @@ def get_neighbour_count(index, values):
   for neighbour in neighbours:
     if neighbour == 1:
       count  = count + 1
+  if count == 0:
+    values[index] = -1
   return count
 
 def get_neighbours(index, values):

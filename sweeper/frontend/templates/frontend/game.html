@@ -23,7 +23,7 @@
   {% for key,value in values.items %}
       <input type="hidden" value={{key}} id="index">
       <button id="mine" onclick="minesweeper(index)">
-       {% if value > 1 %}
+       {% if value == -1 %}
        <span class="glyphicon glyphicon-plus">{{value}}</span>
        {% endif %}
      </button>
