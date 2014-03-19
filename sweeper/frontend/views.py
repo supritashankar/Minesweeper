@@ -56,8 +56,10 @@ def game_recursion(request):
 def get_neighbours(row, col, grid_state, grid_value, grid):
   for i in range(row-1, row+1):
     for j in range(col-1, col+1):
+      if i or j < 0 or (i or j > n) or (i==row && j==col):
+        continue
       if grid[i][j] == 1 and not marked:	#if not a mine
-         """ Also mark grid[i][j] as marked """
+         # Also mark grid[row][col] as marked 
          state_stack.append([row,col])
          grid_state[row][col] = -1
          get_neighbours(i, j, grid_state, grid_value, grid)
