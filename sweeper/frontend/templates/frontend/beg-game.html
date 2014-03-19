@@ -21,24 +21,20 @@
 <div class="container">
 <div class="btn-group">
 <div class="btn-toolbar">
+<form action="http://127.0.0.1:8000/game/steps/{{forloop.counter}}/" method="POST">
+  {% csrf_token %}
   {% for key,value in values.items %}
-       <input type="hidden" value={{key}} id="index">
-       <button id="mine" onclick="minesweeper(index)">
+       <button id="mine">
        {% if forloop.counter|divisibleby:loopcounter %}
        </div>
        <div class="btn-toolbar">
       {% endif %}
     </button>
   {% endfor %}
+</form>
 </div>
 </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script>
-     function minesweeper(index)
-     {	   
-           location.href = "http://127.0.0.1:8000/game/B/steps/" + $('#index').val();
-     }
-   </script> 
 </body>
 </html>
