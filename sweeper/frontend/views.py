@@ -13,7 +13,9 @@ def display_mine(request, level):
     response = requests.get('http://127.0.0.1:8000/mines/randomize/3/')
     print response.content
     request.session['values'] = values
-    c = { 'level' : 'Beginner', 'loopcounter': '3', 'values': values}
+    level = 'Beginner' 
+    loopcounter = 3
+    values = values
     c.update(csrf(request))
 
   if level == 'I':
@@ -25,7 +27,9 @@ def display_mine(request, level):
     values = {0:1,1:1,2:0,3:1, 4:0, 5:1, 6:1, 7:1, 8:1, 9:0, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1, 16:0, 17:0, 18:0, 19:0, 20:1, 21:1, 22:1, 22:1, 23:1, 24:1}
     loopcounter = 5
     level = 'Expert'
-    
+  
+  c = { 'level' : level, 'loopcounter': loopcounter, 'values': values}
+  c.update(csrf(request)) 
   return render_to_response('frontend/beg-game.html', c)
 
 def game(request):
