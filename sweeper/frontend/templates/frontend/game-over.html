@@ -16,29 +16,19 @@
     <link href='http://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet' type='text/css'>
 <body>
 <div class="page-header">
-  <h1>{{ level}} Game<small></small></h1>
+  <h1><small>Minesweeper</small></h1>
 </div>
 <div class="container">
-<div class="btn-group">
-<div class="btn-toolbar">
-  {% for key,value in values.items %}
-       <input type="hidden" value={{key}} id="index">
-       <button id="mine" onclick="minesweeper(index)">
-       {% if forloop.counter|divisibleby:loopcounter %}
-       </div>
-       <div class="btn-toolbar">
-      {% endif %}
-    </button>
-  {% endfor %}
-</div>
+Your game is over buddy!
+<button type="button" id='RE' class="btn btn-primary">Click here to start again</button>
+<button type="button" id='P' class="btn btn-primary">Click here to play the same game again</button>
 </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script>
-     function minesweeper(index)
-     {	   
-           location.href = "http://127.0.0.1:8000/game/B/steps/" + $('#index').val();
-     }
-   </script> 
+     $('#B').on('click', function (e) {
+           location.href = "http://127.0.0.1:8000/newgame/";
+     })
+   </script>
 </body>
 </html>
