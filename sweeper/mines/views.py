@@ -5,11 +5,7 @@ from django.http import HttpResponse
 
 def randomize(request, n):
   grid = ''
-  if n == '3':
-    grid = '100'
-
-  if n == '6':
-    grid = '100101'
-
+  for i in range(1,n)
+    grid.append(int(random.getrandbits(1)))
   message = {'grid' : grid}
   return HttpResponse(json.dumps(message), mimetype = 'application/json')   
