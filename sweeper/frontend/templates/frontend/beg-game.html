@@ -21,7 +21,7 @@
 <div class="container">
 <div class="btn-group">
 <div class="btn-toolbar">
-<form action="http://127.0.0.1:8000/game/steps/{{forloop.counter}}/" method="POST">
+<form action="http://127.0.0.1:8000/game/steps/" method="POST">
   {% csrf_token %}
   {% for key,value in values.items %}
        <button id="mine">

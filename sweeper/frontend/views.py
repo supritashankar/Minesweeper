@@ -9,7 +9,7 @@ def newgame(request):
 def display_mine(request, level):
   c = {}
   if level == 'B':
-    values = {0:1,1:1,2:0,3:1, 4:0, 5:1, 6:1, 7:1, 8:1}
+    values = {0:1,1:1,2:0,3:0, 4:0, 5:1, 6:1, 7:1, 8:1}
     response = requests.get('http://127.0.0.1:8000/mines/randomize/3/')
     print response.content
     request.session['values'] = values
@@ -30,9 +30,12 @@ def display_mine(request, level):
 
 def game(request):
   print request.POST
+  index = 3
   values = request.session['values']
+  print values
   for key,value in values.iteritems():
-    if index == key:
+    print key, index
+    if index == int(key):
       if value == 0:
         return render_to_response('frontend/game-over.html')
 
@@ -59,12 +62,12 @@ def get_neighbours(index, values):
         p = i
         q = j
       k = k+1 
-  neigh = []
-  neigh.append(getRows(p-1), grid)
-  neigh.append(grid[p][q-1])
-  neigh.append(getRows(p+1), grid)
-  neigh.append(grid[p][q+1])
-  return neigh
+  neighbour = []
+  neighbour.append(getRows(p-1), grid)
+  neighbour.append(grid[p][q-1])
+  neighbour.append(getRows(p+1), grid)
+  neighbour.append(grid[p][q+1])
+  return neighbour
 
 def getRows(i, grid):
   rowe = []
