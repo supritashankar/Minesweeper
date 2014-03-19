@@ -33,11 +33,11 @@ def display_mine(request, level):
     loopcounter = 5
     level = 'Expert'
   
-  """ Update the CSRF as you are doing a form post """"
+  """ Update the CSRF as you are doing a form post """
 
   c = { 'level' : level, 'loopcounter': loopcounter, 'values': values}
   c.update(csrf(request)) 
-  return render_to_response('frontend/beg-game.html', c)
+  return render_to_response('frontend/beg-game1.html', c)
 
 def game(request):
   """ Once the user opens a square """
@@ -64,11 +64,15 @@ def get_neighbour_count(index, values):
   for neighbour in neighbours:
     if neighbour == 1:
       count  = count + 1
+
+  """ If all the elements around are not mines then open them up all """
   if count == 0:
     values[index] = -1
   return count
 
 def get_neighbours(index, values):
+
+  """ Returns the neighbours of a given element """
   k = 0
   grid = [[0 for x in xrange(3)] for x in xrange(3)] 
   for i in range(0,3):
@@ -79,6 +83,8 @@ def get_neighbours(index, values):
         q = j
       k = k+1 
   neighbour = []
+
+  """ All the 8 neighbours for a given element """
   neighbour.append(getRows(p-1), grid)
   neighbour.append(grid[p][q-1])
   neighbour.append(getRows(p+1), grid)
@@ -86,6 +92,8 @@ def get_neighbours(index, values):
   return neighbour
 
 def getRows(i, grid):
+  """ Given a row returns all the elements of that row """
+
   rowe = []
   for j in range(0,3):
     rowe.append(grid[i][j])
